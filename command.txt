@@ -1,0 +1,30 @@
+python image_to_pointcloud.py --input "./PMF_OMNIGLOT-main/PMF_OMNIGLOT-main/data/test/saltpepper_noise/04/04" --output "./data/test/saltpepper04/"
+python export_dataset2.py --input "./data/test/deletion1/0" --output "./test1noiteled0.json"
+python image_to_pointcloud_small.py --input "./PMF_OMNIGLOT-main/PMF_OMNIGLOT-main/data/train" --output "./data/train/xsmall/" --resize 25
+python export_dataset2.py --input "./data/train/small/0" --output "./train0small.json"
+
+python image_to_pointcloud_small.py --input "./PMF_OMNIGLOT-main/PMF_OMNIGLOT-main/data/train" --output "./data/train/xsmall/nothin/" --resize 25 --no-thin
+python export_dataset3.py --input "./data/test/small20/border_noise/0/0/" --output "./data/test/border_noise/0/bn0.json"
+
+python image_to_pointcloud_small.py --input "./PMF_OMNIGLOT-main/PMF_OMNIGLOT-main/data/train" --output "./data/size50/" 
+#python export_dataset3.py --input "./data/size50/0/" --output "./data/size50/nonoise0.json"
+python hamiltonian.py --input "./data/size50/0/" --output "./data/size50/hamiltonnonoise0.json"
+python generate_trajectory.py --input "./data/size50/hamiltonnonoise0.json" --output "./data/size50/trajectorynonoise0.json"
+python generate_train_test_traject.py --input "./data/size50/trajectorynonoise0.json" --outtrain "./data/size50/trainnonoise0.txt" --outtest "./data/size50/testnonoise0.txt"
+python gemini_batch_process00.py ./data/size50/alltraj.txt   ./data/size50/resultall00.txt 
+
+python image_to_pointcloud_small.py --input "./PMF_OMNIGLOT-main/PMF_OMNIGLOT-main/data/test/saltpepper_noise/04/04" --output "./data/size50/saltpepper04/" 
+python hamiltonian.py --input "./data/size50/saltpepper04/0/" --output "./data/size50/hamiltonsaltpepper040.json" --prefix "noisy_"
+python generate_trajectory.py --input "./data/size50/hamiltonsaltpepper040.json" --output "./data/size50/trajectorysaltpepper040.json"
+python generate_train_test_traject.py --input "./data/size50/trajectorysaltpepper040.json" --outtrain "./data/size50/trajsaltpepper0400.txt" --outtest "./data/size50/trajsaltpepper0401.txt"
+python gemini_batch_process01.py ./data/size50/trajsaltpepper0400.txt   ./data/size50/resultsaltpepper0400.txt 
+python gemini_batch_process01.py ./data/size50/trajsaltpepper0401.txt   ./data/size50/resultsaltpepper0401.txt 
+
+python image_to_pointcloud_small.py --input "./PMF_OMNIGLOT-main/PMF_OMNIGLOT-main/data/test/deletion_noise/0/0" --output "./data/size50/deletion00/" 
+python hamiltonian.py --input "./data/size50/deletion00/0/" --output "./data/size50/hamiltondeletion00.json" 
+python generate_trajectory.py --input "./data/size50/hamiltondeletion00.json" --output "./data/size50/trajectorydeletion00.json"
+python generate_train_test_traject.py --input "./data/size50/trajdeletion000.json" --outtrain "./data/size50/trajdeletion000.txt" --outtest "./data/size50/trajdeletion001.txt"
+python gemini_batch_process01.py ./data/size50/trajdeletion000.txt   ./data/size50/resulفdeletion00.txt 
+python gemini_batch_process01.py ./data/size50/trajdeletion001.txt   ./data/size50/resultdeletion001.txt 
+
+
